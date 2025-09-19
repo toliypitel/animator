@@ -43,7 +43,7 @@
   "devDependencies": {
     "@angular/core": "^6.0.9",
     "async": "^2.5.0",
-    "chokidar": "^1.7.0",
+    "chokidar": "^3.5.3",
     "cross-env": "^5.1.6",
     "depcheck": "^0.6.7",
     "express": "4.14.1",

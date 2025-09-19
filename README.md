@@ -25,48 +25,53 @@ Some features:
 
 ## 1. Install OS dependencies
 
-It's important to use precise minor version numbers where specified.  `nodegit`/`node-gyp` build errors are expected if you ignore this.
+It's important to use precise minor version numbers where specified.  Native modules such as `nodegit` rely on these toolchains being exactly aligned with the versions below.
 
 ### Mac OS dependencies
 1.) nvm:
 
-    $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+    $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-2.) node 8.15.1:
+2.) node 18.18.2:
 
-    $ nvm install 8.15.1 && nvm alias default 8.15.1 && nvm use 8.15.1
+    $ nvm install 18.18.2 && nvm alias default 18.18.2 && nvm use 18.18.2
 
-3.) yarn 1.13.0:
+3.) yarn 1.22.19:
 
-    $ curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0
+    $ corepack enable && corepack prepare yarn@1.22.19 --activate
 
-4.) python 2.7.16 (if you need multiple Python environments on your machine, we recommend [pyenv](https://github.com/pyenv/pyenv))
+    _or_
+
+    $ npm install --global yarn@1.22.19
+
+4.) python 3.11 (if you need multiple Python environments on your machine, we recommend [pyenv](https://github.com/pyenv/pyenv))
 
 5.) libgcrypt (required for nodegit native bindings)
     $ brew install libgcrypt
 
 ### Windows OS dependencies
 
-Assuming a clean Windows 10, open a PowerShell with admin rights:
+Assuming a clean Windows 10 or 11 install, open a PowerShell with admin rights:
 
 ```
 # Install Chocolatey package manager
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-# Install git
-choco install git python2 -y 
+# Install git and Python 3
+choco install git python -y
 
-# Install nodejs 
-choco install nodejs-lts -y --version 8.15.1
+# Install Node.js LTS
+choco install nodejs-lts -y --version 18.18.2
 
-# Ignore dependencies to force using specified node version 
-choco install yarn -y --version 1.13.0  --ignore-dependencies
+# Install Yarn classic at the recommended version
+choco install yarn -y --version 1.22.19  --ignore-dependencies
 
 # Update PowerShell environment vars
 refreshenv
 
-# Install windows build tools (to compile native electron modules, e.g. nodegit)
-npm install -g windows-build-tools@2.3.0
+# Install Visual Studio Build Tools 2022 for native Electron modules (e.g. nodegit)
+choco install visualstudio2022buildtools -y --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --includeRecommended --passive"
+npm config set msvs_version 2022
 ```
 
 In Windows is not possible to login in Figma while running Animator in development. In order to connect with Figma, is needed to set an environment variable called `FIGMA_TOKEN` with a Figma token as value.
@@ -81,10 +86,10 @@ yarn electron-rebuild
 ### Linux OS dependencies
 
 * Install a desktop environment like Gnome, XFCE, or KDE if machine does not already have one
-* Install dependences from system repositories: `apt install git curl python2 build-essential libgcrypt20 libcurl4-openssl-dev libssl-dev libgtk-3-0 libgconf-2-4 libnss3`
-* Install nvm: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash`
-* Install node 8.15.1: `nvm install 8.15.1 && nvm alias default 8.15.1 && nvm use 8.15.1`
-* Install yarn 1.13.0: `curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.13.0`
+* Install dependences from system repositories: `apt install git curl python3 build-essential libgcrypt20 libcurl4-openssl-dev libssl-dev libgtk-3-0 libgconf-2-4 libnss3`
+* Install nvm: `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash`
+* Install node 18.18.2: `nvm install 18.18.2 && nvm alias default 18.18.2 && nvm use 18.18.2`
+* Install yarn 1.22.19: `corepack enable && corepack prepare yarn@1.22.19 --activate`
 
 
 ## 2. Install project dependencies
